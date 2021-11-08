@@ -1,6 +1,3 @@
-const VIEW = 'view';
-const VIEW_GROUPED = 'grouped';
-const VIEW_CLUSTERED = 'clustered';
 const THEME = 'theme';
 const THEME_DARK = 'dark-v10';
 const THEME_LIGHT = 'light-v10';
@@ -29,8 +26,7 @@ function fitMap(map) {
 }
 
 $(document).ready(function() {
-    let currentTheme = localStorage.getItem(THEME) || THEME_LIGHT;
-    let currentView = localStorage.getItem(VIEW) || VIEW_GROUPED;
+    let currentTheme = localStorage.getItem(THEME) || THEME_DARK;
 
     let map = L.map('map', { attributionControl: false, zoomSnap: 0 });
     map.setView([22.5, 80], 5);
@@ -100,18 +96,21 @@ $(document).ready(function() {
 
     map.addLayer(markers);
 
-    // let introState = localStorage.getItem('intro');
-    // if (!introState) {
-    //     tour();
-    // }
+    let introState = localStorage.getItem('intro');
+    if (!introState) {
+        tour();
+    }
 });
 
 function tour() {
     let tour = introJs().setOptions({
         steps: [{
             title: "Welcome",
-            element: document.querySelector("div.leaflet-top.leaflet-left"),
-            intro: "Hello 👋, Apart from the map on the right, you also have various controls available here. <p><em>You can also exit this guided tour by pressing <strong>ESC</strong> key.</em></p>"
+            intro: "This is the IR Assignment that was done by Group_A1 in November 2021. Let me quickly walk you through this interface. <p><em>You can also exit this guided tour by pressing <strong>ESC</strong> key.</em></p>"
+        }, {
+            title: "Search here",
+            element: document.querySelector("div.leaflet-control-search.leaflet-control"),
+            intro: "Click this icon to open a search bar to search for various locations around the world."
         }, {
             title: "Center Map",
             element: document.querySelector("button[title='Center Map']"),
