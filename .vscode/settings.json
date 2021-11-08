@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "html.format.enable": false,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "lonefy.vscode-JS-CSS-HTML-formatter"
+}
