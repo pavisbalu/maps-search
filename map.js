@@ -54,6 +54,10 @@ $(document).ready(function() {
         window.open('https://github.com/pavisbalu/group-a1-ir-assignment-nov2021', '_new');
     }, 'View Source on Github').addTo(map);
 
+    L.easyButton('fas fa-question', function() {
+        tour();
+    }, 'Show Help').addTo(map);
+
     const markers = L.markerClusterGroup({
         singleMarkerMode: true,
         animate: true,
