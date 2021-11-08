@@ -40,15 +40,28 @@ $(document).ready(function() {
     );
     mapTileLayer.addTo(map);
 
+    const markers = L.markerClusterGroup({
+        singleMarkerMode: true,
+        animate: true,
+        animateAddingMarkers: true,
+        removeOutsideVisibleBounds: false,
+    });
+    map.addLayer(markers);
+
+
     // Reset Map view
     L.easyButton('fa-crosshairs', function(btn, map) {
         fitMap(map);
     }, 'Center Map').addTo(map);
 
-    // add theme toggle button on the map
     L.easyButton('fas fa-adjust', function() {
         toggleTheme();
     }, 'Toggle Theme').addTo(map);
+
+    L.easyButton('fas fa-trash-alt', function() {
+        markers.clearLayers();
+        map.setView([22.5, 80], 5);
+    }, 'Remove Markers').addTo(map);
 
     L.easyButton('fab fa-github', function() {
         window.open('https://github.com/pavisbalu/group-a1-ir-assignment-nov2021', '_new');
@@ -57,13 +70,6 @@ $(document).ready(function() {
     L.easyButton('fas fa-question', function() {
         tour();
     }, 'Show Help').addTo(map);
-
-    const markers = L.markerClusterGroup({
-        singleMarkerMode: true,
-        animate: true,
-        animateAddingMarkers: true,
-        removeOutsideVisibleBounds: false,
-    });
 
     new L.Control.Search({
         position: 'topright',
@@ -98,8 +104,6 @@ $(document).ready(function() {
         },
     }).addTo(map);
 
-    map.addLayer(markers);
-
     let introState = localStorage.getItem('intro');
     if (!introState) {
         tour();
@@ -114,7 +118,11 @@ function tour() {
         }, {
             title: "Search here",
             element: document.querySelector("div.leaflet-control-search.leaflet-control"),
-            intro: "Click this icon to open a search bar to search for various locations around the world."
+            intro: "Click this icon to open a search bar to search for various locations around the world.<p>Each time you select a location, a marker for that get's added on the Map.</p>"
+        }, {
+            title: "Clear Markers",
+            element: document.querySelector("button[title='Remove Markers']"),
+            intro: "If you want to start over from scratch you can clear all existing markers and start over using me.",
         }, {
             title: "Center Map",
             element: document.querySelector("button[title='Center Map']"),
